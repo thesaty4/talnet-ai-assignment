@@ -1,0 +1,54 @@
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    env_file:
+      - .env
+    environment:
+      - KEYCLOAK_USER=admin          # Set your desired admin username
+      - KEYCLOAK_PASSWORD=admin      # Set your desired admin password
+      - KEYCLOAK_ADMIN=admin         # Set admin username
+      - KEYCLOAK_ADMIN_PASSWORD=admin  # Set admin password
+    ports:
+      - "8080:8080"
+    networks:
+      - keycloak-net
+    restart: always
+    command: ["start-dev"]
+
+  backend:
+    build:
+      context: .  # Use current directory (backend/), where Dockerfile is
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    volumes:
+      - ./src:/usr/src/app  # Mount src/ from current directory (backend/src)
+      - ./node_modules:/usr/src/app/node_modules
+      - ./keycloak.json:/usr/src/app/keycloak.json
+    restart: always  # Ensure backend restarts in case of failure
+    networks:
+      - keycloak-net
+
+  postgres:
+    image: postgres:15
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - keycloak-net  # Ensure Postgres is on the same network
+
+volumes:
+  postgres_data:
+
+
+networks:
+  keycloak-net:  # Define the network here
+    driver: bridge  # Default bridge driver for Docker network
