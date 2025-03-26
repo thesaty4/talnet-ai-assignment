@@ -1,0 +1,10 @@
+{
+  "realm": "master",
+  "auth-server-url": "http://host.docker.internal:8080",
+  "ssl-required": "external",
+  "resource": "client-id-goes-here",
+  "credentials": {
+    "secret": "client-secret-goes-here"
+  },
+  "confidential-port": 0
+}
