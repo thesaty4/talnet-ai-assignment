@@ -317,6 +317,19 @@ The Postgres database (`org_management`) has the following schema:
     ```
 ---
 
+## PG Admin Setup for accessing database ( PG Admin Should Install in your system)
+- **Server Name**: `<Talnet AI>` You can can give name as you wish.
+- **Host name/Address**: `localhost`.
+- **Port**: `5433`.
+- **Database**: `org_management`.
+- **Username**: `admin`.
+- **Password**: `admin`
+  - **You can run these query**: These query will give you the org and regional data
+  - ```bash
+      select * from organizations 
+      select * from regional_offices
+    ```
+
 ## Troubleshooting
 - **Keycloak Not Starting**: Check logs (`docker logs <keycloak-container>`) and ensure the `.env` file has correct credentials.
 - **Frontend Not Loading**: Verify Nginx logs (`docker logs <frontend-container>`) and ensure CORS is configured in Keycloak.
