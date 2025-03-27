@@ -1,0 +1,8 @@
+<div class="container">
+  <app-organization-form (organizationCreated)="refreshData()"></app-organization-form>
+  <app-regional-office-form
+    [organizations]="organizations"
+    (officeCreated)="refreshData()">
+  </app-regional-office-form>
+  <app-organization-list [organizations]="organizations"></app-organization-list>
+</div>
