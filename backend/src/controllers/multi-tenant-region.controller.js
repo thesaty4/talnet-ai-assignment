@@ -1,10 +1,19 @@
 const RegionalOffice = require('../models/region.model');
 const Organization = require('../models/organization.model');
+const { sequelize } = require('../config/db.config'); // Import sequelize for transaction
 
-class MultiTenantRegionController {
+/**@deprecated for some reason, this is not giving latest data
+ * Need to debug it
+ */
+class MultiTenantRegionController { 
+
   // Get all regional offices with their associated organization details (joined data), grouped by organizationId with pagination
   static async getAllRegionsWithOrgDetails(req, res) {
     try {
+      // Parse pagination query parameter (e.g., pagination=true or pagination=false)
+      const isPagination = req.query.pagination === 'true' ? true : req.query.pagination === 'false' ? false : true;
+      console.log('isPagination****', isPagination);
+
       // Extract pagination parameters from query (default: page=1, limit=10)
       const page = parseInt(req.query.page) || 1;
       const limit = parseInt(req.query.limit) || 10;
@@ -18,9 +27,9 @@ class MultiTenantRegionController {
         include: [
           {
             model: Organization,
-            as: 'organization', // Use the alias defined in the association
+            as: 'organization',
             attributes: ['id', 'name', 'realm'],
-            required: false, // Left join to include regional offices even if the organization is missing
+            required: false,
           },
         ],
         attributes: [
@@ -31,28 +40,36 @@ class MultiTenantRegionController {
           'createdAt',
           'updatedAt',
         ],
-        limit: limit,
-        offset: offset,
-        order: [['organizationId', 'ASC'], ['createdAt', 'ASC']],
+        ...(isPagination && {
+          limit: limit,
+          offset: offset,
+        }),
+        order: [['organizationId', 'ASC'], ['createdAt', 'DESC']], // Sort by createdAt DESC to get latest records first
+        raw: true, // Use raw query to avoid Sequelize instance issues
+        nest: true, // Ensure nested objects are properly structured
       });
+
+      // Log the raw data to debug
+      console.log('Raw regionsWithOrg:', JSON.stringify(regionsWithOrg, null, 2));
 
       // If no regional offices are found, return an empty response with pagination metadata
       if (!regionsWithOrg || regionsWithOrg.length === 0) {
         return res.status(200).json({
           data: [],
-          pagination: {
-            totalItems: 0,
-            totalPages: 0,
-            currentPage: page,
-            pageSize: limit,
-          },
+          ...(isPagination && {
+            pagination: {
+              totalItems: 0,
+              totalPages: 0,
+              currentPage: page,
+              pageSize: limit,
+            },
+          }),
         });
       }
 
       // Group the results by organizationId
       const groupedByOrg = regionsWithOrg.reduce((acc, region) => {
         const orgId = region.organizationId;
-        // Skip if the organization is missing (e.g., orphaned record)
         if (!region.organization) {
           console.warn(`Regional office ${region.id} has no associated organization (organizationId: ${orgId})`);
           return acc;
@@ -84,15 +101,17 @@ class MultiTenantRegionController {
       // Calculate pagination metadata
       const totalPages = Math.ceil(totalCount / limit);
 
-      // Return the grouped data with pagination metadata
+      // Return the grouped data with pagination metadata (if pagination is enabled)
       return res.status(200).json({
         data: groupedData,
-        pagination: {
-          totalItems: totalCount,
-          totalPages: totalPages,
-          currentPage: page,
-          pageSize: limit,
-        },
+        ...(isPagination && {
+          pagination: {
+            totalItems: totalCount,
+            totalPages: totalPages,
+            currentPage: page,
+            pageSize: limit,
+          },
+        }),
       });
     } catch (error) {
       console.error('Error fetching joined regional offices and organizations:', error);
