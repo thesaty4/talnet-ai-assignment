@@ -1,0 +1,16 @@
+<div class="card">
+  <h2>Create Organization</h2>
+  <form [formGroup]="orgForm" (ngSubmit)="onSubmit()">
+    <app-input
+      label="Organization Name"
+      id="org-name"
+      controlName="name"
+      placeholder="Enter organization name">
+    </app-input>
+    <app-button
+      label="Create"
+      type="submit"
+      [disabled]="orgForm.invalid">
+    </app-button>
+  </form>
+</div>
