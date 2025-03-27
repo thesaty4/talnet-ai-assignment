@@ -1,54 +1,32 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
+import { BaseAPIService } from '../../shared/services/base-api.service';
 import { Organization } from '../types/organization';
 import { RegionalOffice } from '../types/regional-office';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ApiService {
-  private apiUrl = environment.apiUrl;
-
-  constructor(private http: HttpClient) {}
-
+export class ApiService extends BaseAPIService {
+  // Fetch all organizations
   getOrganizations(): Observable<Organization[]> {
-    return this.http
-      .get<Organization[]>(`${this.apiUrl}/organizations`)
-      .pipe(catchError(this.handleError));
+    return this.get<Organization[]>('/organizations');
   }
 
+  // Create an organization
   createOrganization(name: string): Observable<Organization> {
-    return this.http
-      .post<Organization>(`${this.apiUrl}/organizations`, { name })
-      .pipe(catchError(this.handleError));
+    return this.post<Organization>('/organizations', { name });
   }
 
+  // Fetch regional offices for a specific organization
   getRegionalOffices(organizationId: string): Observable<RegionalOffice[]> {
-    return this.http
-      .get<RegionalOffice[]>(
-        `${this.apiUrl}/regional-offices/${organizationId}`
-      )
-      .pipe(catchError(this.handleError));
+    return this.get<RegionalOffice[]>(`/regional-offices/${organizationId}`);
   }
 
+  // Create a new regional office
   createRegionalOffice(
     office: Partial<RegionalOffice>
   ): Observable<RegionalOffice> {
-    return this.http
-      .post<RegionalOffice>(`${this.apiUrl}/regional-offices`, office)
-      .pipe(catchError(this.handleError));
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'An unknown error occurred';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    return throwError(() => new Error(errorMessage));
+    return this.post<RegionalOffice>('/regional-offices', office);
   }
 }

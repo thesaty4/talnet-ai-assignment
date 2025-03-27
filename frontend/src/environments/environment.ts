@@ -1,4 +1,15 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000/api/v1',
+  keyClockURL:
+    'http://localhost:8080/realms/master/protocol/openid-connect/token',
+  keyClockClientId: 'admin-cli',
+  keyClockUsername: 'admin',
+  keyClockPassword: 'admin',
+  keyClockGrantType: 'password',
+
+  keyClockToken:
+    'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJpMXZNMWdVMFlTSGhGa2Ytc3I3NHk1a0JVNlU5elhQMEVia0I2X2xKOENrIn0.eyJleHAiOjE3NDMwNjc0NTEsImlhdCI6MTc0MzA2NzM5MSwianRpIjoiNTlkNTMxZWItODFmNy00YmM2LTk3OTMtYWY0NmRkODMzZjBmIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9tYXN0ZXIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzaWQiOiI2YTQ2ZWNjOS02NGEwLTQ4Y2UtYWRhYi1hYjFjNTMyNjI0M2UiLCJzY29wZSI6InByb2ZpbGUgZW1haWwifQ.Yi7o_QSUOcT0vW_9HmzjFErkBxG0minON7biB4vllSnp86rxTa2Zdcg3dZocjCf-z5onDIG4h5jRjMrOjcD4hgQwifrvuT32RtoJiZP3Ft9tiJVuZL8rn9zho3tCQzDQHygnQny4pguWoBtJTDRocJbfGbR_aIKNtfbBE0gvG2c_unke5LmqfbFHO1X5Xdzl5LbZOoqrKSLU9eFktX4WKn3rqZGqQEquYbN0sn3VwI67cS7l8UP7yhc3iAtioWvclz6miWxOL8Dbl7b7qlYa4Farj9iHBs_-xIJJD_c_KTf1aVRbLPbXtGOeR8U3WjnyLp17DJJ3W9Db144W4iTU8g',
 };
+
+export default environment;

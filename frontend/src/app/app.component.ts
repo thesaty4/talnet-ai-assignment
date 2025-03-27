@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastModule } from 'primeng/toast';
 import { OrganizationFormComponent } from './features/components/organization-form/organization-form.component';
 import { OrganizationListComponent } from './features/components/organization-list/organization-list.component';
 import { RegionalOfficeFormComponent } from './features/components/regional-office-form/regional-office-form.component';
@@ -12,6 +13,7 @@ import { Organization } from './features/types/organization';
     OrganizationFormComponent,
     RegionalOfficeFormComponent,
     OrganizationListComponent,
+    ToastModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
