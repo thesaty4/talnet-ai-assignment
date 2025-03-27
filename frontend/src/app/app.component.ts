@@ -10,10 +10,10 @@ import { Organization } from './features/types/organization';
   selector: 'app-root',
   standalone: true,
   imports: [
+    ToastModule,
     OrganizationFormComponent,
     RegionalOfficeFormComponent,
     OrganizationListComponent,
-    ToastModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

@@ -1,13 +1,21 @@
 <div class="card">
   <h2>Organizations</h2>
   <p-accordion>
-    <p-accordionTab *ngFor="let org of organizations" [header]="org.name">
+    @for(org of organizations;track $index){
+    <p-accordionTab [header]="org.name">
       <div class="offices">
-        <div *ngFor="let office of org.regionalOffices" class="office-item">
-          {{office.name}}
-        </div>
-        <div *ngIf="!org.regionalOffices?.length">No regional offices yet</div>
+        @for(office of org.regionalOffices;track $index){
+          <div class="office-item">
+            {{ office.name }}
+          </div>
+        }
+
+        @if(!org.regionalOffices?.length){
+          <div>No regional offices yet</div>
+        }
+
       </div>
     </p-accordionTab>
+    }
   </p-accordion>
 </div>

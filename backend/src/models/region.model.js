@@ -29,6 +29,7 @@ const RegionalOffice = sequelize.define('RegionalOffice', {
   timestamps: true,
 });
 
-Organization.hasMany(RegionalOffice, { foreignKey: 'organizationId', as: 'regionalOffices' });
-RegionalOffice.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+RegionalOffice.belongsTo(Organization, { foreignKey: 'organizationId' });
+Organization.hasMany(RegionalOffice, { foreignKey: 'organizationId' });
+
 module.exports = RegionalOffice;
