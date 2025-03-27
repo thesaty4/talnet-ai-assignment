@@ -1,0 +1,15 @@
+<div class="field" [formGroup]="formGroup">
+  <label [for]="id">{{label}}</label>
+  <p-dropdown
+    [id]="id"
+    [options]="options"
+    [formControlName]="controlName"
+    [optionLabel]="optionLabel"
+    [optionValue]="optionValue"
+    [placeholder]="placeholder"
+    [styleClass]="styleClass">
+  </p-dropdown>
+  <small class="p-error" *ngIf="control?.invalid && control?.touched">
+    {{errorMessage}}
+  </small>
+</div>

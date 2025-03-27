@@ -1,0 +1,10 @@
+<div [formGroup]="formGroup">
+  <div class="field">
+    <label [for]="id">{{ label }}</label>
+
+    <input pInputText [id]="id" [formControlName]="controlName" />
+    <small class="p-error" *ngIf="control?.invalid && control?.touched">
+      {{ errorMessage }}
+    </small>
+  </div>
+</div>
