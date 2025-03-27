@@ -12,10 +12,10 @@ import { MultiTenantRegionModel } from './shared/models/multi-tenant-region.mode
   selector: 'app-root',
   standalone: true,
   imports: [
+    ToastModule,
     OrganizationFormComponent,
     RegionalOfficeFormComponent,
     OrganizationListComponent,
-    ToastModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
