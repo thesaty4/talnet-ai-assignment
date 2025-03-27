@@ -1,9 +1,11 @@
 # TalentAI - Multi-Tenant Organization Management System
 
 ## Overview
+
 For this assignment we are using KeyCloak to handle user identities. We are creating organizations, each with its own separate space in KeyCloak (realm), and we are adding regional offices inside those organizations (as groups). It has an easy-to-use interface for managing everything, a backend API to handle the operations, and a Postgres database to store the data. Plus, it’s all packed into Docker containers, so setting it up is a breeze!
 
 ### Technology Stack
+
 - **Frontend**: Angular (TypeScript)
 - **Backend**: Node.js + Express
 - **Identity Management**: Keycloak
@@ -13,6 +15,7 @@ For this assignment we are using KeyCloak to handle user identities. We are crea
 ---
 
 ## Project Structure
+
 ```
 talnetAIAssignment/
 ├── backend/
@@ -79,19 +82,24 @@ talnetAIAssignment/
 ## Setup Instructions
 
 ### Prerequisites
+
 - **Docker** and **Docker Compose** installed on your machine.
 - **Node.js** (v18) and **npm** for local development (optional).
 - **Git/Extract** to clone the repository or extract the zip project.
 
 ### Steps
+
 1. **Clone the Repository**:
+
    ```bash
    git clone <repository-url>
    cd talnetAIAssignment
    ```
 
 2. **Set Up Environment Variables**:
+
    - Create a `.env` file in the `backend/` folder with the following content:
+
      ```
      # Postgres Configuration
      POSTGRES_USER=admin
@@ -107,9 +115,11 @@ talnetAIAssignment/
      KEYCLOAK_CLIENT_ID=backend-client
      KEYCLOAK_CLIENT_SECRET=default-secret-key
      ```
+
    - Replace `default-secret-key` with the client secret from KeyCloak or this leave it as default.
 
 3. **Deploy the Application**:
+
    - Please ensure you should be inside the root project & up the docker compose :
      ```bash
      docker-compose up -d
@@ -119,55 +129,60 @@ talnetAIAssignment/
      - Start the frontend on `http://localhost:4200`.
      - Keycloak Admin Console will be available at `http://localhost:8080`.
 
-
 4. **Access the Application**:
+
    - **Frontend**: `http://localhost:4200`
    - **Backend API**: `http://localhost:3000`
    - **Keycloak Admin Console**: `http://localhost:8080` (login: `admin/admin`)
    - **Postgres**: `localhost:5433` (user: `admin`, password: `admin`)
 
 5. **Stop the Application**:
-    - Terminate the compose :
-      ```bash
-      docker-compose down
-      ```
-    - Terminate existing and up the compose :
-      ```bash
-      docker-compose down && docker-compose up -d
-      ```
-    - Terminate existing and up the compose :
-      ```bash
-      docker-compose down && docker-compose up -d
-      ```
-    - Remove All Container :
-      ```bash
-      docker rm $(docker ps -aq)
-      ```
-    - Remove All Images:
-      ```bash
-      docker rmi $(docker images -aq)
+   - Terminate the compose :
+     ```bash
+     docker-compose down
+     ```
+   - Terminate existing and up the compose :
+     ```bash
+     docker-compose down && docker-compose up -d
+     ```
+   - Terminate existing and up the compose :
+     ```bash
+     docker-compose down && docker-compose up -d
+     ```
+   - Remove All Container :
+     ```bash
+     docker rm $(docker ps -aq)
+     ```
+   - Remove All Images:
+     ```bash
+     docker rmi $(docker images -aq)
+     ```
 
 ---
 
 ## Usage Instructions
 
 ### Keycloak Setup
+
 1. **Log in to Keycloak Admin Console**:
+
    - Go to `http://localhost:8080` and log in with `admin/admin`.
 
 2. **Realm Config Required**:
    - Go to `Realm Settings` at the bottom of left navigation.
    - Enable **User-Managed Access** and **Organizations** in **Realm Settings**.
 
-
 ### Using the Application
+
 1. **Register a New Organization**:
+
    - Open the frontend at `http://localhost:4200`.
    - Navigate to the organization form (e.g., "Create Organization").
    - Fill in the details (e.g., Name, Domain).
    - Submit the form to create a new realm in Keycloak for the organization.
 
 2. **Create Regional Offices**:
+
    - After creating an organization, select it from the UI.
    - Navigate to the regional office form (e.g., "Add Regional Office").
    - Add offices (e.g., "North Region", "South Region").
@@ -182,6 +197,7 @@ talnetAIAssignment/
 ## Design Details
 
 ### Architecture
+
 - **Multi-Tenancy**: Each organization gets its own Keycloak realm, ensuring isolation of users, roles, and groups.
 - **Keycloak Integration**: The backend uses KeyCloak's Admin REST API to manage realms and groups.
 - **Frontend**: Angular provides UI for organization and regional office management.
@@ -189,6 +205,7 @@ talnetAIAssignment/
 - **Database**: Postgres stores organization metadata (e.g., name, realm ID).
 
 ### Keycloak Configuration
+
 - **Realm Settings**:
   - Enabled **User-Managed Access (UMA)** for resource sharing.
   - Enabled **Organizations** for multi-tenant support.
@@ -196,47 +213,53 @@ talnetAIAssignment/
 - **Groups**: Regional offices are represented as groups within each organization's realm.
 
 ### Database Schema
+
 The Postgres database (`org_management`) has the following schema:
 
 #### Table: `organizations`
-| Column       | Type         | Description                     |
-|--------------|--------------|---------------------------------|
-| id           | SERIAL       | Primary key                     |
-| name         | VARCHAR(255) | Organization name               |
-| realm        | VARCHAR(50)  | Keycloak realm ID               |
-| createdAt    | TIMESTAMP    | Creation timestamp              |
-| updatedAt    | TIMESTAMP    | Updated timestamp               |
+
+| Column    | Type         | Description        |
+| --------- | ------------ | ------------------ |
+| id        | SERIAL       | Primary key        |
+| name      | VARCHAR(255) | Organization name  |
+| realm     | VARCHAR(50)  | Keycloak realm ID  |
+| createdAt | TIMESTAMP    | Creation timestamp |
+| updatedAt | TIMESTAMP    | Updated timestamp  |
 
 #### Table: `regional_offices`
-| Column         | Type              | Description                     |
-|----------------|-------------------|---------------------------------|
-| id             | SERIAL(AUTO_INCR) | Primary key                     |
-| organizationId | INTEGER           | Foreign key to `organizations`  |
-| name           | VARCHAR(255)      | Regional office name            |
-| keycloakGroupId| VARCHAR(50)       | Keycloak group ID               |
-| createdAt      | TIMESTAMP         | Creation timestamp              |
-| updatedAt      | TIMESTAMP         | Updated timestamp               |
+
+| Column          | Type              | Description                    |
+| --------------- | ----------------- | ------------------------------ |
+| id              | SERIAL(AUTO_INCR) | Primary key                    |
+| organizationId  | INTEGER           | Foreign key to `organizations` |
+| name            | VARCHAR(255)      | Regional office name           |
+| keycloakGroupId | VARCHAR(50)       | Keycloak group ID              |
+| createdAt       | TIMESTAMP         | Creation timestamp             |
+| updatedAt       | TIMESTAMP         | Updated timestamp              |
 
 ---
 
 ## API Details
 
 ### Base URL
+
 `http://localhost:3000`
 
 ### Authentication
+
 - The backend uses Keycloak's service account to authenticate API requests.
 - Currently we are using hardcoded token, so there is no need of login
 
 ### Endpoints
 
 #### 1. Create a New Organization
+
 - **Endpoint**: `POST /api/v1/organization`
 - **Description**: Creates a new organization and a corresponding Keycloak realm.
 - **Request Body**:
   ```json
   {
-    "name": "OrgName",
+    "name": "OrgName"
   }
   ```
 - **Response**:
@@ -251,9 +274,9 @@ The Postgres database (`org_management`) has the following schema:
   - **400 Bad Request**: If the request is invalid.
   - **500 Internal Server Error**: If Keycloak or DB operations fail.
 
-
 #### 2. Get All Organizations
-- **Endpoint**: `GET /api/organization`
+
+- **Endpoint**: `GET /api/v1//organization`
 - **Description**: Retrieves a list of all organizations.
 - **Response**:
   - **200 OK**:
@@ -268,8 +291,8 @@ The Postgres database (`org_management`) has the following schema:
     ]
     ```
 
-
 #### 3. Create a Regional Office
+
 - **Endpoint**: `POST /api/v1/regional-office`
 - **Description**: Creates a regional office as a group in the organization's Keycloak realm.
 - **Request Body**:
@@ -297,57 +320,84 @@ The Postgres database (`org_management`) has the following schema:
   - **500 Internal Server Error**: If Keycloak or DB operations fail.
 
 #### 4. Get a Regional Office By Organization Id
+
 - **Endpoint**: `GET /api/v1/regional-offices/4`
 - **Description**: get regional detail, related to organization
 - **Response**:
   - **200 get**:
     ```json
     {
-        "id": 7,
-        "name": "office",
-        "organizationId": 4,
-        "keycloakGroupId": "1ab3b398-0a8f-47f3-81d7-407415808827",
-        "createdAt": "2025-03-27T16:29:55.789Z",
-        "updatedAt": "2025-03-27T16:29:55.789Z",
-        "Organization": {
-            "name": "satya-testing",
-            "realm": "satya-testing"
-        }
+      "id": 7,
+      "name": "office",
+      "organizationId": 4,
+      "keycloakGroupId": "1ab3b398-0a8f-47f3-81d7-407415808827",
+      "createdAt": "2025-03-27T16:29:55.789Z",
+      "updatedAt": "2025-03-27T16:29:55.789Z",
+      "Organization": {
+        "name": "satya-testing",
+        "realm": "satya-testing"
+      }
     }
     ```
 
-
 #### 5. Get All Regional Offices with Joined Organization Details
-- **Endpoint**: `GET /api/v1/regional-office/joined`
+
+- **Endpoint**: `GET /api/v1/multi-tenant-region?page=1&limit=10`
 - **Description**: Retrieves all regional offices with their associated organization details (joined data).
 - **Response**:
   - **200 OK**:
     ```json
     [
       {
-        "id": 1,
-        "name": "North Region",
-        "organizationId": 1,
-        "keycloakGroupId": "north-region-group-id",
-        "created_at": "2025-03-27T16:29:55.789Z",
-        "updated_at": "2025-03-27T16:29:55.789Z",
-        "organization": {
-          "id": 1,
-          "name": "OrgName",
-          "realm": "orgname-realm"
-        }
-      },
-      {
-        "id": 2,
-        "name": "South Region",
-        "organizationId": 1,
-        "keycloakGroupId": "south-region-group-id",
-        "created_at": "2025-03-27T16:30:00.000Z",
-        "updated_at": "2025-03-27T16:30:00.000Z",
-        "organization": {
-          "id": 1,
-          "name": "OrgName",
-          "realm": "orgname-realm"
+        "data": [
+          {
+            "organization": {
+              "id": 1,
+              "name": "OrgName",
+              "realm": "orgname-realm"
+            },
+            "regions": [
+              {
+                "id": 1,
+                "name": "North Region",
+                "organizationId": 1,
+                "keycloakGroupId": "north-region-group-id",
+                "createdAt": "2025-03-27T16:29:55.789Z",
+                "updatedAt": "2025-03-27T16:29:55.789Z"
+              },
+              {
+                "id": 2,
+                "name": "South Region",
+                "organizationId": 1,
+                "keycloakGroupId": "south-region-group-id",
+                "createdAt": "2025-03-27T16:30:00.000Z",
+                "updatedAt": "2025-03-27T16:30:00.000Z"
+              }
+            ]
+          },
+          {
+            "organization": {
+              "id": 2,
+              "name": "AnotherOrg",
+              "realm": "anotherorg-realm"
+            },
+            "regions": [
+              {
+                "id": 3,
+                "name": "East Region",
+                "organizationId": 2,
+                "keycloakGroupId": "east-region-group-id",
+                "createdAt": "2025-03-27T16:35:00.000Z",
+                "updatedAt": "2025-03-27T16:35:00.000Z"
+              }
+            ]
+          }
+        ],
+        "pagination": {
+          "totalItems": 3,
+          "totalPages": 1,
+          "currentPage": 1,
+          "pageSize": 10
         }
       }
     ]
@@ -360,9 +410,11 @@ The Postgres database (`org_management`) has the following schema:
     ```json
     { "error": "Failed to fetch joined data" }
     ```
+
 ---
 
 ## PG Admin Setup for accessing database ( PG Admin Should Install in your system)
+
 - **Server Name**: `<Talnet AI>` You can can give name as you wish.
 - **Host name/Address**: `localhost`.
 - **Port**: `5433`.
@@ -371,12 +423,14 @@ The Postgres database (`org_management`) has the following schema:
 - **Password**: `admin`
   - **You can run these query**: These query will give you the org and regional data
   - ```bash
-      select * from organizations 
+      select * from organizations
       select * from regional_offices
     ```
+
 ---
 
 ## Troubleshooting
+
 - **Keycloak Not Starting**: Check logs (`docker logs <keycloak-container>`) and ensure the `.env` file has correct credentials.
 - **Frontend Not Loading**: Verify Nginx logs (`docker logs <frontend-container>`) and ensure CORS is configured in Keycloak.
 - **API Errors**: Check backend logs (`docker logs <backend-container>`) for Keycloak or DB connection issues.
@@ -384,6 +438,7 @@ The Postgres database (`org_management`) has the following schema:
 ---
 
 ## This is Our Future Improvements
+
 - Add user management within organizations.
 - Implement role-based access control (RBAC) for regional offices.
 - Enhance security by restricting CORS origins in production.
