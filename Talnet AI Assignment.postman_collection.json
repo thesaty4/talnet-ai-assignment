@@ -1,0 +1,379 @@
+{
+	"info": {
+		"_postman_id": "a5a57511-5d7e-4b82-830d-906eed44c8f4",
+		"name": "Talnet AI Assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42366184",
+		"_collection_link": "https://warped-eclipse-317611.postman.co/workspace/TemplateSee~2ce465a4-823f-46e6-aa7b-5dd4e75f1be1/collection/42366184-a5a57511-5d7e-4b82-830d-906eed44c8f4?action=share&source=collection_link&creator=42366184"
+	},
+	"item": [
+		{
+			"name": "Organization",
+			"item": [
+				{
+					"name": "getAllOrg",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJWLUhndzliWUVQMTUzVFhHTV9FVmFKVGFNb3pUQWx6aTdxQnk5RzI3WFdnIn0.eyJleHAiOjE3NDMwMjUxNzksImlhdCI6MTc0MzAyNTExOSwianRpIjoiMTA5ODMyMzEtM2E1Yy00YjFkLWI0NDYtOThmYTllMTljODRmIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9tYXN0ZXIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzaWQiOiI3Njg4ZTAwMy0yMTBiLTQ3YjItOTRjOS1lYmI3MTI4MDQ1MTUiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUifQ.BAFb8Alh3sODggJnvKcxLFPS8qJjibrS7RTknD9vsFr-wQw4EaCr4hc0s5dKV5Zv8rKeJjV3sD-vSJXuOB_mvbsK2sGy6meF3BiP3Bv2zi6sm1KkDrefhlbO82EgL2lPsP7VVpI5qoRqxSKE2o7UvoOQ-6VqzF1_aEyiQHp6J5QY8x8aQGDtM7sSF_57Q-GdsFme2JA-ms8DiOQAOkqAEkZCvHeul4J1pEgMgYPJtlDwOw4qgkmMA6HbdbBeZOeUww-OE2JrqL0Ps8vfBGTkb5cxsZ37eDeK-zoS6QGKgquNDXdXP9eE4ZFbs8ygZX66pAa6s86xMk72FSUp4QWo3Q"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/organizations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"organizations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createOrg",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJWLUhndzliWUVQMTUzVFhHTV9FVmFKVGFNb3pUQWx6aTdxQnk5RzI3WFdnIn0.eyJleHAiOjE3NDMwMjUxNzksImlhdCI6MTc0MzAyNTExOSwianRpIjoiMTA5ODMyMzEtM2E1Yy00YjFkLWI0NDYtOThmYTllMTljODRmIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9tYXN0ZXIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzaWQiOiI3Njg4ZTAwMy0yMTBiLTQ3YjItOTRjOS1lYmI3MTI4MDQ1MTUiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUifQ.BAFb8Alh3sODggJnvKcxLFPS8qJjibrS7RTknD9vsFr-wQw4EaCr4hc0s5dKV5Zv8rKeJjV3sD-vSJXuOB_mvbsK2sGy6meF3BiP3Bv2zi6sm1KkDrefhlbO82EgL2lPsP7VVpI5qoRqxSKE2o7UvoOQ-6VqzF1_aEyiQHp6J5QY8x8aQGDtM7sSF_57Q-GdsFme2JA-ms8DiOQAOkqAEkZCvHeul4J1pEgMgYPJtlDwOw4qgkmMA6HbdbBeZOeUww-OE2JrqL0Ps8vfBGTkb5cxsZ37eDeK-zoS6QGKgquNDXdXP9eE4ZFbs8ygZX66pAa6s86xMk72FSUp4QWo3Q"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"New Satya1 Organization\",\n  \"realm\": \"new-org-realm\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/organizations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"organizations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Regional-Offices",
+			"item": [
+				{
+					"name": "getRegionalsByOrgId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YOUR_BEARER_TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/regional-offices/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"regional-offices",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createRegional",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI0bUhzdFh5Q3kwWVA5OXhSVWt1RGdHeFRTR3BNdDczbEVhd3M2UmJ3eHNJIn0.eyJleHAiOjE3NDMwOTQyNzgsImlhdCI6MTc0MzA5NDIxOCwianRpIjoiYTc0Nzk5YjMtN2ZkNC00Mzc3LTkzZTMtZDM5OWVkMmUzODhkIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9tYXN0ZXIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzaWQiOiJhNWRiNWRiNS1mNDcxLTRjMGUtYmQzNC0yYzc4ZjkwYTkyYzQiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUifQ.Pdfa2Vuz3XVkZ-lNmB1pTencb1rBnOr9Op1Ar_I4oM0KCWJTTx0OIhl8UgAGQfPd7aEMmMzT0vnyosuPKMdLq5Qnn6v0ej22HMHUFl9uAR1gMMbTapiDT7ng_8KxBZVhGikIHshvd3mtp-7vn4wBiMJmkJ93zboGeXtty_mEb04YjaR4J-6I9B9nb3R9oaWNH_kGVbr0ol3QE_f13UPxQ5wQ8a9N-GHonglSzjzYy0Wie137HtrQku28NoO6SXNhoQYcO4VgoCZQJv_b-Sdrg5J-qAD6NxyZtmFWPqRngxQUin9F3EI85KxaiWcfKO3pVPh9491nTZ7RXXplrSmVqg"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"organizationId\": 2,\n  \"name\": \"Regiona lfffffice -1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/regional-offices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"regional-offices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllRealms",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJWLUhndzliWUVQMTUzVFhHTV9FVmFKVGFNb3pUQWx6aTdxQnk5RzI3WFdnIn0.eyJleHAiOjE3NDMwMjUxNzksImlhdCI6MTc0MzAyNTExOSwianRpIjoiMTA5ODMyMzEtM2E1Yy00YjFkLWI0NDYtOThmYTllMTljODRmIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9tYXN0ZXIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzaWQiOiI3Njg4ZTAwMy0yMTBiLTQ3YjItOTRjOS1lYmI3MTI4MDQ1MTUiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUifQ.BAFb8Alh3sODggJnvKcxLFPS8qJjibrS7RTknD9vsFr-wQw4EaCr4hc0s5dKV5Zv8rKeJjV3sD-vSJXuOB_mvbsK2sGy6meF3BiP3Bv2zi6sm1KkDrefhlbO82EgL2lPsP7VVpI5qoRqxSKE2o7UvoOQ-6VqzF1_aEyiQHp6J5QY8x8aQGDtM7sSF_57Q-GdsFme2JA-ms8DiOQAOkqAEkZCvHeul4J1pEgMgYPJtlDwOw4qgkmMA6HbdbBeZOeUww-OE2JrqL0Ps8vfBGTkb5cxsZ37eDeK-zoS6QGKgquNDXdXP9eE4ZFbs8ygZX66pAa6s86xMk72FSUp4QWo3Q"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/regional-offices/realms",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"regional-offices",
+								"realms"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MultiTenantRegion",
+			"item": [
+				{
+					"name": "getMTRRegion",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJWLUhndzliWUVQMTUzVFhHTV9FVmFKVGFNb3pUQWx6aTdxQnk5RzI3WFdnIn0.eyJleHAiOjE3NDMwMjUxNzksImlhdCI6MTc0MzAyNTExOSwianRpIjoiMTA5ODMyMzEtM2E1Yy00YjFkLWI0NDYtOThmYTllMTljODRmIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9tYXN0ZXIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzaWQiOiI3Njg4ZTAwMy0yMTBiLTQ3YjItOTRjOS1lYmI3MTI4MDQ1MTUiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUifQ.BAFb8Alh3sODggJnvKcxLFPS8qJjibrS7RTknD9vsFr-wQw4EaCr4hc0s5dKV5Zv8rKeJjV3sD-vSJXuOB_mvbsK2sGy6meF3BiP3Bv2zi6sm1KkDrefhlbO82EgL2lPsP7VVpI5qoRqxSKE2o7UvoOQ-6VqzF1_aEyiQHp6J5QY8x8aQGDtM7sSF_57Q-GdsFme2JA-ms8DiOQAOkqAEkZCvHeul4J1pEgMgYPJtlDwOw4qgkmMA6HbdbBeZOeUww-OE2JrqL0Ps8vfBGTkb5cxsZ37eDeK-zoS6QGKgquNDXdXP9eE4ZFbs8ygZX66pAa6s86xMk72FSUp4QWo3Q"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/regional-office/joined",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"regional-office",
+								"joined"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "admin-cli",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/realms/master/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"master",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "backendTesting",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refreshToken",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "admin-cli",
+							"type": "text"
+						},
+						{
+							"key": "refresh_token",
+							"value": "<your-refresh-token>",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/realms/master/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"master",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createRealm",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer <your-access-token>"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"realm\": \"new-realm-name\",\n  \"enabled\": true,\n  \"displayName\": \"New Organization\",\n  \"loginTheme\": \"keycloak\",\n  \"accessTokenLifespan\": 3600,\n  \"ssoSessionIdleTimeout\": 1800\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/admin/realms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"realms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRelams",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/auth/admin/realms\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"admin",
+						"realms\n"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
