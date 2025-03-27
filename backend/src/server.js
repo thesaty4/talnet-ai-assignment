@@ -11,7 +11,7 @@ const app = express();
 // Middleware
 // CORS Configuration
 app.use(cors({
-  origin: '*', // Adjust in production
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
 app.use(express.json());
