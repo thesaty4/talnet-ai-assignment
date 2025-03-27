@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AccordionModule } from 'primeng/accordion';
-import { Organization } from '../../types/organization';
+import { MultiTenantRegionModel } from '../../../shared/models/multi-tenant-region.model';
 
 @Component({
   selector: 'app-organization-list',
@@ -11,5 +11,8 @@ import { Organization } from '../../types/organization';
   styleUrl: './organization-list.component.scss',
 })
 export class OrganizationListComponent {
-  @Input() organizations: Organization[] = [];
+  @Input() groupedList: MultiTenantRegionModel['groups']['data'] = [];
+  @Input() pagination!: MultiTenantRegionModel['groups']['pagination'];
+
+  @Output() loadMoreData = new EventEmitter<string>();
 }

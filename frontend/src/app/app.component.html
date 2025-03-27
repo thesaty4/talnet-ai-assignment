@@ -3,7 +3,6 @@
   <app-organization-form (organizationCreated)="refreshData()"></app-organization-form>
   <app-regional-office-form
     [organizations]="organizations"
-    (officeCreated)="refreshData()">
-  </app-regional-office-form>
-  <app-organization-list [organizations]="organizations"></app-organization-list>
+    (officeCreated)="refreshData()"/>
+  <app-organization-list [groupedList]="groupedList" [pagination]="pagination"></app-organization-list>
 </div>

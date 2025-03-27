@@ -1,5 +1,8 @@
 export interface RegionalOffice {
-  id: string;
+  id: number;
   name: string;
-  organizationId: string;
+  organizationId: number;
+  keycloakGroupId: string;
+  createdAt: string;
+  updatedAt: string;
 }

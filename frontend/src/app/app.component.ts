@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { ToastModule } from 'primeng/toast';
+import { Subscription } from 'rxjs';
 import { OrganizationFormComponent } from './features/components/organization-form/organization-form.component';
 import { OrganizationListComponent } from './features/components/organization-list/organization-list.component';
 import { RegionalOfficeFormComponent } from './features/components/regional-office-form/regional-office-form.component';
 import { ApiService } from './features/services/api.service';
 import { Organization } from './features/types/organization';
+import { MultiTenantRegionModel } from './shared/models/multi-tenant-region.model';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +22,10 @@ import { Organization } from './features/types/organization';
 })
 export class AppComponent {
   organizations: Organization[] = [];
+  groupedList: MultiTenantRegionModel['groups']['data'] = [];
+  pagination!: MultiTenantRegionModel['groups']['pagination'];
+
+  subscription$ = new Subscription();
 
   constructor(private apiService: ApiService) {}
 
@@ -38,12 +44,19 @@ export class AppComponent {
   }
 
   private loadRegionalOffices() {
-    this.organizations.forEach((org) => {
-      this.apiService.getRegionalOffices(org.id).subscribe({
-        next: (offices) => (org.regionalOffices = offices),
-        error: (err) =>
-          console.error(`Error loading offices for ${org.name}:`, err),
-      });
-    });
+    this.subscription$.add(
+      this.apiService.getMultiTenantRegions('?pagination=false').subscribe({
+        next: (res) => {
+          const model = new MultiTenantRegionModel(res);
+          this.groupedList = model.groups['data'];
+          this.organizations = model.records;
+          this.pagination = model.groups['pagination'];
+        },
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription$.unsubscribe();
   }
 }
