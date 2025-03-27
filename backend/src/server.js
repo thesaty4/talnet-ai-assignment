@@ -9,7 +9,11 @@ const { mySession,protectRoute, keyCloak } = require('./middleware/keyCloak.midd
 const app = express();
 
 // Middleware
-app.use(cors());
+// CORS Configuration
+app.use(cors({
+  origin: '*', // Adjust in production
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+}));
 app.use(express.json());
 
 

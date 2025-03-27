@@ -16,7 +16,12 @@ services:
     networks:
       - keycloak-net
     restart: always
-    command: ["start-dev"]
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+      - ./keycloak.conf:/opt/keycloak/conf/keycloak.conf
+    command:
+      - start-dev
+      - --import-realm
 
   backend:
     build:
@@ -28,6 +33,7 @@ services:
       - .env
     depends_on:
       - postgres
+      - keycloak
     volumes:
       - ./src:/usr/src/app  # Mount src/ from current directory (backend/src)
       - ./node_modules:/usr/src/app/node_modules
@@ -49,6 +55,7 @@ services:
       - keycloak-net  # Ensure Postgres is on the same network
 
 volumes:
+  keycloak-data:
   postgres_data:
 
 

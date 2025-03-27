@@ -1,10 +1,10 @@
 # Use Node.js 18 base image
 FROM node:18
 
-# Set working directory inside the container
+# Set working directory
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json (if available) to ensure dependencies are installed correctly
+# Copy package files first for better caching
 COPY package*.json ./
 
 # Install dependencies
@@ -14,9 +14,8 @@ RUN npm install
 COPY src/ ./
 COPY keycloak.json /usr/src/app/keycloak.json
 
-
-# Expose the port the app will run on
+# Expose the port
 EXPOSE 3000
 
-# Start the application
+# Default command to start the application
 CMD ["node", "server.js"]
