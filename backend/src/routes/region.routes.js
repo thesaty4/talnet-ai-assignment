@@ -9,6 +9,5 @@ router.post('/', RegionalOfficeController.createRegionalOffice);
 
 // GET /api/regional-offices/:organizationId - Get all regional offices for an organization
 router.get('/:organizationId', RegionalOfficeController.getRegionalOffices);
-
-
+ 
 module.exports = router;

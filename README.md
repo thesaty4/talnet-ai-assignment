@@ -315,6 +315,51 @@ The Postgres database (`org_management`) has the following schema:
         }
     }
     ```
+
+
+#### 5. Get All Regional Offices with Joined Organization Details
+- **Endpoint**: `GET /api/v1/regional-office/joined`
+- **Description**: Retrieves all regional offices with their associated organization details (joined data).
+- **Response**:
+  - **200 OK**:
+    ```json
+    [
+      {
+        "id": 1,
+        "name": "North Region",
+        "organizationId": 1,
+        "keycloakGroupId": "north-region-group-id",
+        "created_at": "2025-03-27T16:29:55.789Z",
+        "updated_at": "2025-03-27T16:29:55.789Z",
+        "organization": {
+          "id": 1,
+          "name": "OrgName",
+          "realm": "orgname-realm"
+        }
+      },
+      {
+        "id": 2,
+        "name": "South Region",
+        "organizationId": 1,
+        "keycloakGroupId": "south-region-group-id",
+        "created_at": "2025-03-27T16:30:00.000Z",
+        "updated_at": "2025-03-27T16:30:00.000Z",
+        "organization": {
+          "id": 1,
+          "name": "OrgName",
+          "realm": "orgname-realm"
+        }
+      }
+    ]
+    ```
+  - **200 OK** (if no data):
+    ```json
+    []
+    ```
+  - **500 Internal Server Error**:
+    ```json
+    { "error": "Failed to fetch joined data" }
+    ```
 ---
 
 ## PG Admin Setup for accessing database ( PG Admin Should Install in your system)
