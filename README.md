@@ -329,6 +329,7 @@ The Postgres database (`org_management`) has the following schema:
       select * from organizations 
       select * from regional_offices
     ```
+---
 
 ## Troubleshooting
 - **Keycloak Not Starting**: Check logs (`docker logs <keycloak-container>`) and ensure the `.env` file has correct credentials.
