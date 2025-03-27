@@ -1,0 +1,25 @@
+<div class="card">
+  <h2>Create Regional Office</h2>
+  <form [formGroup]="regionalForm" (ngSubmit)="onSubmit()">
+    <app-dropdown
+      label="Organization"
+      id="org-select"
+      controlName="organizationId"
+      [options]="organizations"
+      optionLabel="name"
+      optionValue="id"
+      placeholder="Select an organization"
+    />
+    <app-input
+      label="Office Name"
+      id="office-name"
+      controlName="name"
+      placeholder="Enter office name"
+    />
+    <app-button
+      label="Create"
+      type="submit"
+      [disabled]="regionalForm.invalid"
+    />
+  </form>
+</div>
