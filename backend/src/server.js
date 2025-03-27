@@ -42,12 +42,9 @@ const startServer = async () => {
     await sequelize.sync({ force: false });
     console.log('Database connected');
 
-    // Initialize KeyCloak Admin Client
-    await initializeKeyCloakAdmin();
-
     // Start Express server
     app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+      console.log(`✅ Server running on port ${PORT}`);
     });
   } catch (error) {
     console.error('Failed to start server:', error);
