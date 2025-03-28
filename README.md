@@ -11,6 +11,7 @@ For this assignment we are using KeyCloak to handle user identities. We are crea
 - **Identity Management**: Keycloak
 - **Database**: Postgres
 - **Deployment**: Docker, Docker Compose
+<img width="1279" alt="Screenshot 2025-03-28 at 11 32 06 AM" src="https://github.com/user-attachments/assets/80e829b6-8bbb-4aff-8f37-4c662cd413f6" />
 
 ---
 
@@ -259,12 +260,14 @@ The Postgres database (`org_management`) has the following schema:
 ---
 
 ## API Details
+- Collection is provided in the root directory
+- <img width="284" alt="Screenshot 2025-03-28 at 11 28 13 AM" src="https://github.com/user-attachments/assets/696b472b-07a2-4e41-8603-8752c2d78712" />
 
 ### Base URL
 
 `http://localhost:3000`
 
-### Authentication
+### Authentication ( Optional )
 
 - The backend uses Keycloak's service account to authenticate API requests.
 - Currently we are using hardcoded token, so there is no need of login
@@ -445,7 +448,7 @@ The Postgres database (`org_management`) has the following schema:
       select * from organizations
       select * from regional_offices
     ```
-
+- <img width="1467" alt="Screenshot 2025-03-28 at 11 27 26 AM" src="https://github.com/user-attachments/assets/244befae-b9b7-4362-8761-669f426a22d9" />
 ---
 
 ## Troubleshooting
