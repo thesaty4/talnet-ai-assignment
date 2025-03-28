@@ -1,18 +1,22 @@
-const RegionalOffice = require('../models/region.model');
-const Organization = require('../models/organization.model');
-const { sequelize } = require('../config/db.config'); // Import sequelize for transaction
+const RegionalOffice = require("../models/region.model");
+const Organization = require("../models/organization.model");
+const { sequelize } = require("../config/db.config"); // Import sequelize for transaction
 
 /**@deprecated for some reason, this is not giving latest data
  * Need to debug it
  */
-class MultiTenantRegionController { 
-
+class MultiTenantRegionController {
   // Get all regional offices with their associated organization details (joined data), grouped by organizationId with pagination
   static async getAllRegionsWithOrgDetails(req, res) {
     try {
       // Parse pagination query parameter (e.g., pagination=true or pagination=false)
-      const isPagination = req.query.pagination === 'true' ? true : req.query.pagination === 'false' ? false : true;
-      console.log('isPagination****', isPagination);
+      const isPagination =
+        req.query.pagination === "true"
+          ? true
+          : req.query.pagination === "false"
+          ? false
+          : true;
+      console.log("isPagination****", isPagination);
 
       // Extract pagination parameters from query (default: page=1, limit=10)
       const page = parseInt(req.query.page) || 1;
@@ -20,90 +24,56 @@ class MultiTenantRegionController {
       const offset = (page - 1) * limit;
 
       // Fetch total count of regional offices for pagination metadata
-      const totalCount = await RegionalOffice.count();
+      const totalCount = await Organization.count();
 
       // Fetch regional offices with pagination and include associated organization details
-      const regionsWithOrg = await RegionalOffice.findAll({
+      const regionsWithOrg = await Organization.findAll({
         include: [
           {
-            model: Organization,
-            as: 'organization',
-            attributes: ['id', 'name', 'realm'],
-            required: false,
+            model: RegionalOffice, // No alias required
+            attributes: [
+              "id",
+              "name",
+              "organizationId",
+              "keycloakGroupId",
+              "createdAt",
+              "updatedAt",
+            ],
+            required: false, // Left join (include organizations without regional offices)
           },
         ],
-        attributes: [
-          'id',
-          'name',
-          'organizationId',
-          'keycloakGroupId',
-          'createdAt',
-          'updatedAt',
-        ],
-        ...(isPagination && {
-          limit: limit,
-          offset: offset,
-        }),
-        order: [['organizationId', 'ASC'], ['createdAt', 'DESC']], // Sort by createdAt DESC to get latest records first
-        raw: true, // Use raw query to avoid Sequelize instance issues
-        nest: true, // Ensure nested objects are properly structured
+        attributes: ["id", "name", "realm", "createdAt", "updatedAt"],
+        ...(isPagination && { limit, offset }),
+        raw: true,
+        nest: true,
       });
 
-      // Log the raw data to debug
-      console.log('Raw regionsWithOrg:', JSON.stringify(regionsWithOrg, null, 2));
+      // grouping the data, so that we can have organization and its regional offices
+      const groupedData = Object.values(
+        regionsWithOrg.reduce(
+          (acc, { id, name, realm, RegionalOffices, ...rest }) => {
+            if (!acc[id]) {
+              acc[id] = {
+                organization: { id, name, realm, ...rest },
+                regions: [],
+              };
+            }
+            if (RegionalOffices?.id) {
+              acc[id].regions.push(RegionalOffices);
+            }
+            return acc;
+          },
+          {}
+        )
+      );
 
-      // If no regional offices are found, return an empty response with pagination metadata
-      if (!regionsWithOrg || regionsWithOrg.length === 0) {
-        return res.status(200).json({
-          data: [],
-          ...(isPagination && {
-            pagination: {
-              totalItems: 0,
-              totalPages: 0,
-              currentPage: page,
-              pageSize: limit,
-            },
-          }),
-        });
-      }
-
-      // Group the results by organizationId
-      const groupedByOrg = regionsWithOrg.reduce((acc, region) => {
-        const orgId = region.organizationId;
-        if (!region.organization) {
-          console.warn(`Regional office ${region.id} has no associated organization (organizationId: ${orgId})`);
-          return acc;
-        }
-        if (!acc[orgId]) {
-          acc[orgId] = {
-            organization: {
-              id: region.organization.id,
-              name: region.organization.name,
-              realm: region.organization.realm,
-            },
-            regions: [],
-          };
-        }
-        acc[orgId].regions.push({
-          id: region.id,
-          name: region.name,
-          organizationId: region.organizationId,
-          keycloakGroupId: region.keycloakGroupId,
-          createdAt: region.createdAt,
-          updatedAt: region.updatedAt,
-        });
-        return acc;
-      }, {});
-
-      // Convert grouped object to array format
-      const groupedData = Object.values(groupedByOrg);
-
-      // Calculate pagination metadata
-      const totalPages = Math.ceil(totalCount / limit);
+      groupedData.forEach((group) => {
+        group.regions = group.regions.reverse();
+      });
 
       // Return the grouped data with pagination metadata (if pagination is enabled)
       return res.status(200).json({
-        data: groupedData,
+        data: groupedData.reverse(),
         ...(isPagination && {
           pagination: {
             totalItems: totalCount,
@@ -114,8 +84,11 @@ class MultiTenantRegionController {
         }),
       });
     } catch (error) {
-      console.error('Error fetching joined regional offices and organizations:', error);
-      return res.status(500).json({ error: 'Failed to fetch joined data' });
+      console.error(
+        "Error fetching joined regional offices and organizations:",
+        error
+      );
+      return res.status(500).json({ error: "Failed to fetch joined data" });
     }
   }
 }
