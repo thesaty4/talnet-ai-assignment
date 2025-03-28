@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseAPIService } from '../../shared/services/base-api.service';
+import { MultiTenantRegionResponse } from '../types/multi-tenant-region';
 import { Organization } from '../types/organization';
 import { RegionalOffice } from '../types/regional-office';
 
@@ -28,5 +29,11 @@ export class ApiService extends BaseAPIService {
     office: Partial<RegionalOffice>
   ): Observable<RegionalOffice> {
     return this.post<RegionalOffice>('/regional-offices', office);
+  }
+
+  getMultiTenantRegions(queryParams: string) {
+    return this.get<MultiTenantRegionResponse>(
+      `/multi-tenant-region${queryParams}`
+    );
   }
 }

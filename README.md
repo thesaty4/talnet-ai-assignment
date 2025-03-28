@@ -117,6 +117,7 @@ talnetAIAssignment/
      ```
 
    - Replace `default-secret-key` with the client secret from KeyCloak or this leave it as default.
+   - Alternately a `.env` file in the `backend/` copy `.env.example` file and past in `.env`:
 
 3. **Deploy the Application**:
 
@@ -124,6 +125,10 @@ talnetAIAssignment/
      ```bash
      docker-compose up -d
      ```
+   - Alternate (Shall script written, which  having everything) :
+    ```bash
+       bash ./docker-manager.sh
+    ```
    - This will:
      - Start Keycloak, Postgres, and the backend on `http://localhost:3000`.
      - Start the frontend on `http://localhost:4200`.
@@ -149,15 +154,25 @@ talnetAIAssignment/
      ```bash
      docker-compose down && docker-compose up -d
      ```
-   - Remove All Container :
+   - Stop & Remove All Container :
      ```bash
-     docker rm $(docker ps -aq)
+     docker stop $(docker ps -q)
+     docker rm -f $(docker ps -a -q)
      ```
    - Remove All Images:
      ```bash
      docker rmi $(docker images -aq)
      ```
-
+   - Remove Volumes/Networks/Build
+     ```bash
+     docker volume prune -f
+     docker network prune -f
+     docker builder prune -f
+     ```
+   - Remove Volumes/Networks/Build
+     ```bash
+    docker system prune -a --volumes -f
+     ```
 ---
 
 ## Usage Instructions

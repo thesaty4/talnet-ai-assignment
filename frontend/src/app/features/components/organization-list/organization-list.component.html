@@ -1,19 +1,16 @@
 <div class="card">
   <h2>Organizations</h2>
   <p-accordion>
-    @for(org of organizations;track $index){
-    <p-accordionTab [header]="org.name">
+    @for( org of groupedList; track $index){
+    <p-accordionTab [header]="org.organization.name">
       <div class="offices">
-        @for(office of org.regionalOffices;track $index){
-          <div class="office-item">
-            {{ office.name }}
-          </div>
+        @for( office of org.regions; track $index){
+        <div class="office-item">
+          {{ office.name }}
+        </div>
+        } @if(org.regions.length === 0){
+        <div>No regional offices yet</div>
         }
-
-        @if(!org.regionalOffices?.length){
-          <div>No regional offices yet</div>
-        }
-
       </div>
     </p-accordionTab>
     }
