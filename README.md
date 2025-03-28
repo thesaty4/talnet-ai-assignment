@@ -124,6 +124,10 @@ talnetAIAssignment/
      ```bash
      docker-compose up -d
      ```
+   - Alternate (Shall script written, which  having everything) :
+    ```bash
+       bash ./docker-manager.sh
+    ```
    - This will:
      - Start Keycloak, Postgres, and the backend on `http://localhost:3000`.
      - Start the frontend on `http://localhost:4200`.
