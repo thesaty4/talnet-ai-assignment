@@ -125,10 +125,12 @@ talnetAIAssignment/
      ```bash
      docker-compose up -d
      ```
-   - Alternate (Shall script written, which  having everything) :
-    ```bash
-       bash ./docker-manager.sh
-    ```
+   - Alternate (Shall script written, which having everything) :
+
+   ```bash
+      bash ./docker-manager.sh
+   ```
+
    - This will:
      - Start Keycloak, Postgres, and the backend on `http://localhost:3000`.
      - Start the frontend on `http://localhost:4200`.
@@ -164,15 +166,16 @@ talnetAIAssignment/
      docker rmi $(docker images -aq)
      ```
    - Remove Volumes/Networks/Build
-     ```bash
-     `docker volume prune -f
-     docker network prune -f
-     docker builder prune -f`
-     ```
+   ```bash
+    docker volume prune -f;
+    docker network prune -f;
+    docker builder prune -f;
+   ```
    - Remove Volumes/Networks/Build
      ```bash
-    `docker system prune -a --volumes -f`
+     docker system prune -a --volumes -f;
      ```
+
 ---
 
 ## Usage Instructions
