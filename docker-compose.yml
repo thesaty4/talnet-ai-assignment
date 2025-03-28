@@ -16,9 +16,15 @@ services:
     networks:
       - keycloak-net
     restart: always
-    volumes:
-      - keycloak-data:/opt/keycloak/data
+    volumes: 
+      # Remove persistent volume for keycloak-data
+      # - keycloak-data:/opt/keycloak/data
       - ./backend/keycloak.conf:/opt/keycloak/conf/keycloak.conf
+      # Mount realm import directory (if needed)
+      - ./backend/realms:/opt/keycloak/data/import:ro
+      # Use tmpfs for temporary storage (optional)
+      - type: tmpfs
+        target: /opt/keycloak/data
     command:
       - start-dev
       - --import-realm
@@ -64,14 +70,19 @@ services:
       - ./backend/.env
     ports:
       - "5433:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    volumes: 
+      # Remove persistent volume for postgres_data
+      # - postgres_data:/var/lib/postgresql/data
+      # Use tmpfs for temporary storage (optional)
+      - type: tmpfs
+        target: /var/lib/postgresql/data
     networks:
       - keycloak-net  # Ensure Postgres is on the same network
 
-volumes:
-  keycloak-data:
-  postgres_data:
+# volumes:
+  # If we don't want persistence
+  # keycloak-data:
+  # postgres_data:
 
 
 networks:

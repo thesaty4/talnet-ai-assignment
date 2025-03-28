@@ -149,15 +149,25 @@ talnetAIAssignment/
      ```bash
      docker-compose down && docker-compose up -d
      ```
-   - Remove All Container :
+   - Stop & Remove All Container :
      ```bash
-     docker rm $(docker ps -aq)
+     docker stop $(docker ps -q)
+     docker rm -f $(docker ps -a -q)
      ```
    - Remove All Images:
      ```bash
      docker rmi $(docker images -aq)
      ```
-
+   - Remove Volumes/Networks/Build
+     ```bash
+     docker volume prune -f
+     docker network prune -f
+     docker builder prune -f
+     ```
+   - Remove Volumes/Networks/Build
+     ```bash
+    docker system prune -a --volumes -f
+     ```
 ---
 
 ## Usage Instructions
