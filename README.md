@@ -165,13 +165,13 @@ talnetAIAssignment/
      ```
    - Remove Volumes/Networks/Build
      ```bash
-     docker volume prune -f
+     `docker volume prune -f
      docker network prune -f
-     docker builder prune -f
+     docker builder prune -f`
      ```
    - Remove Volumes/Networks/Build
      ```bash
-    docker system prune -a --volumes -f
+    `docker system prune -a --volumes -f`
      ```
 ---
 
