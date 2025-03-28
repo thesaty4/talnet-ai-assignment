@@ -117,6 +117,7 @@ talnetAIAssignment/
      ```
 
    - Replace `default-secret-key` with the client secret from KeyCloak or this leave it as default.
+   - Alternately a `.env` file in the `backend/` copy `.env.example` file and past in `.env`:
 
 3. **Deploy the Application**:
 
