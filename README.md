@@ -224,10 +224,11 @@ talnetAIAssignment/
 
 ### Keycloak Configuration
 
-- **Realm Settings**:
+- **Realm Settings ( if needed )**:
   - Enabled **User-Managed Access (UMA)** for resource sharing.
-  - Enabled **Organizations** for multi-tenant support.
-  - Configured CORS to allow frontend requests (`http://localhost:4200`).
+  - Enabled **Organizations** for multi-tenant support. 
+  - <img width="1361" alt="Screenshot 2025-03-28 at 11 26 10 AM" src="https://github.com/user-attachments/assets/09067585-0e4e-4b37-86d6-b2e2fc020325" />
+
 - **Groups**: Regional offices are represented as groups within each organization's realm.
 
 ### Database Schema
